@@ -8,43 +8,59 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <header>  
-        <nav>
-            <h3>Where in the world?</h3>
-            <div class="favourite-button">
-                <i class="fa-regular fa-heart"></i>
-            </div>
-        </nav>
-    </header>
-    <div class="outer-of-favourite">
-        <h2>Favourites</h2>
-        <div class="favourite-section">
-            <h3>˙◠˙  Nothing in your Favourites !!</h3>
+<header>
+    <nav>
+        <h3>Travel the Globe: Uncover Countries and Their Wonders!</h3>
+        <div class="favourite-button">
+            <i class="fa-regular fa-heart"></i>
+        </div>
+    </nav>
+</header>
+<div class="intro-text">
+    <p> " Explore essential details about countries from around the world. Find out about their major cities, cultural heritage, and key statistics that offer a glimpse into what makes each country unique. "</p>
+</div>
+<div class="outer-of-favourite">
+    <h2>Favourites</h2>
+    <div class="favourite-section">
+        <h3>˙◠˙  Nothing in your Favourites !!</h3>
+    </div>
+</div>
+<div class="main-display">
+    <div class="filter-section">
+        <div class="search-filter-wrapper">
+            <input class="search-box" name="search" placeholder="Search...">
+            <select class="region-list" name="region">
+                <option value="">Select Region</option>
+                <!-- Add your options here -->
+            </select>
         </div>
     </div>
-    <div class="main-display">
-        <div class="filter-section">
-            <div class="search-section">
-                <input class="search-box" name="search">
-                <button class="searching">Search</button>
-            </div>
-            <div class="filter-options">
-                <p>Filter by Region</p>
-                <select class="region-list" name="region">
-                </select>
-            </div>
-        </div>
-        <div id="countries-tempelate">
-            <div class="noMatchFound">No Match Found!</div>
-            <div class="country-name" id="sample">
-                <img src='https://d3dyfaf3iutrxo.cloudfront.net/general/upload/8a03a3ef41ee48efb9d97990d224b35a.svg'>
-                <h3>Aland islands</h3>
-                <p>Capital: Mariehamn </p>
-                <p>Region: Europe</p>
-                <button>Favourite</button>
-            </div>
+    <div id="countries-tempelate">
+        <div class="noMatchFound">No Match Found!</div>
+        <div class="country-name" id="sample">
+            <img src='https://d3dyfaf3iutrxo.cloudfront.net/general/upload/8a03a3ef41ee48efb9d97990d224b35a.svg'>
+            <h3>Aland islands</h3>
+            <p>Capital: Mariehamn </p>
+            <p>Region: Europe</p>
+            <button>Favourite</button>
         </div>
     </div>
-    <script src="index.js"></script>
+</div>
+
+<div class="country-details">
+    <img id="detail-flag" src="" alt="Flag">
+    <h2 id="detail-name"></h2>
+    <p id="detail-capital"></p>
+    <p id="detail-region"></p>
+    <p id="detail-population"></p>
+    <p id="detail-area"></p>
+    <p id="detail-languages"></p>
+    <p id="detail-currencies"></p>
+    <p id="detail-borders"></p>
+    <div id="map" style="height: 300px; width: 100%;"></div>
+</div>
+
+<script src="index.js"></script>
 </body>
 </html>
+l>
