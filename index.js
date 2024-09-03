@@ -932,78 +932,78 @@ let countriesData = [
       independent: true,
     },
   ]
-  for(let i of countriesData){
-    i.isFavourite = false;
-  }
-  const mainData = [...countriesData];
-  const sample = document.querySelector('.country-name');
-  
-  let filterOptions = ["All","Africa","America","Asia","Europe","Oceania"];
-  for(let  i = 0;i < filterOptions.length;i++){
+for(let i of countriesData){
+  i.isFavourite = false;
+}
+const mainData = [...countriesData];
+const sample = document.querySelector('.country-name');
+
+let filterOptions = ["All","Africa","America","Asia","Europe","Oceania"];
+for(let  i = 0;i < filterOptions.length;i++){
   let regionToFilter = document.createElement("option");
   regionToFilter.value = filterOptions[i];
   regionToFilter.textContent = filterOptions[i];
   document.querySelector(".region-list").append(regionToFilter);
+}
+
+let areWeInFavouriteSection = false;
+
+function display(data){
+  document.querySelector(".noMatchFound").style.display = "none";
+  let countriesTempelate = document.querySelector("#countries-tempelate");
+  let currentData = countriesTempelate.children;
+  let count = currentData.length;
+  while( count > 1){
+    countriesTempelate.removeChild(currentData[1]);
+    count -= 1;
   }
-  
-  let areWeInFavouriteSection = false;
-  
-  function display(data){
-    document.querySelector(".noMatchFound").style.display = "none";
-    let countriesTempelate = document.querySelector("#countries-tempelate");
-    let currentData = countriesTempelate.children;
-    let count = currentData.length;
-    while( count > 1){
-        countriesTempelate.removeChild(currentData[1]);
-        count -= 1;
-    }
-    
-    for(let i of data){
-        let newCountry = sample.cloneNode(true);
-        newCountry.id = i.name;
-        let elem = Array.from(newCountry.children);
-        elem[0].src = i.flags.svg;
-        elem[1].textContent = i.name;
-        elem[2].textContent = `Capital: ${i.capital}`;
-        elem[3].textContent = `Region: ${i.region}`;
-  
-        countriesTempelate.append(newCountry);
-        newCountry.lastElementChild.addEventListener("click",() => {
-                i.isFavourite = true;
-                if(areWeInFavouriteSection){
-                    displayFavourite();
-                }
-            
-        })
-    }
+
+  for(let i of data){
+    let newCountry = sample.cloneNode(true);
+    newCountry.id = i.name;
+    let elem = Array.from(newCountry.children);
+    elem[0].src = i.flags.svg;
+    elem[1].textContent = i.name;
+    elem[2].textContent = `Capital: ${i.capital}`;
+    elem[3].textContent = `Region: ${i.region}`;
+
+    countriesTempelate.append(newCountry);
+    newCountry.lastElementChild.addEventListener("click",() => {
+      i.isFavourite = true;
+      if(areWeInFavouriteSection){
+        displayFavourite();
+      }
+
+    })
   }
-  
-  display(countriesData);
-  function filterOutTheCountries(keyWord){
+}
+
+display(countriesData);
+function filterOutTheCountries(keyWord){
   countriesData = mainData.filter((country) => country.region == keyWord);
   display(countriesData);
   if(regionSelector.value == "All"){
     countriesData = [...mainData];
     display(countriesData);
   }
-  }
-  
-  let regionSelector = document.querySelector(".region-list")
-  regionSelector.addEventListener("change", () =>{
+}
+
+let regionSelector = document.querySelector(".region-list")
+regionSelector.addEventListener("change", () =>{
   filterOutTheCountries(regionSelector.value);
-  })
-  
-  function showEmptyMessage(){
+})
+
+function showEmptyMessage(){
   let favouriteSection = document.querySelector(".favourite-section");
   if(favouriteSection.children.length == 1){
-    favouriteSection.children[0].style.display = "block";   
+    favouriteSection.children[0].style.display = "block";
   }
   else{
     favouriteSection.children[0].style.display = "none";
   }
-  }
-  
-  function displayFavourite(){
+}
+
+function displayFavourite(){
   let favouriteSection = document.querySelector(".favourite-section");
   let favouriteCountries = countriesData.filter((i) => i.isFavourite == true);
   document.querySelector(".outer-of-favourite").style.display = "block";
@@ -1015,43 +1015,43 @@ let countriesData = [
     elem[1].textContent = i.name;
     elem[2].textContent = `Capital: ${i.capital}`;
     elem[3].textContent = `Region: ${i.region}`;
-  
+
     newCountry.lastElementChild.textContent = "Remove";
     let check = Array.from(favouriteSection.children).filter((q) => q.id == i.name);
     if (check.length == 0){
       favouriteSection.append(newCountry);
     }
     newCountry.lastElementChild.addEventListener("click",(e) => {
-      
+
       i.isFavourite = false;
       favouriteSection.removeChild(e.target.closest(".country-name"));
       showEmptyMessage();
-      
+
     })
   }
   showEmptyMessage();
   areWeInFavouriteSection = true;
+}
+document.querySelector(".favourite-button").addEventListener("click", () =>{
+  if(areWeInFavouriteSection){
+    document.querySelector(".outer-of-favourite").style.display = "none";
+    areWeInFavouriteSection = false;
+    document.querySelector("i").style.fontWeight = 100;
+    document.querySelector("i").style.color = "black";
   }
-  document.querySelector(".favourite-button").addEventListener("click", () =>{
-    if(areWeInFavouriteSection){
-        document.querySelector(".outer-of-favourite").style.display = "none";
-        areWeInFavouriteSection = false;
-        document.querySelector("i").style.fontWeight = 100;
-        document.querySelector("i").style.color = "black";
-    }
-    else{
-        document.querySelector("i").style.fontWeight = 700;
-        document.querySelector("i").style.color = "red";
-        displayFavourite();
-    }
-  });
-  
-  
-  let inputBox = document.querySelector(".search-box")
-  inputBox.addEventListener("input",(e) =>{
+  else{
+    document.querySelector("i").style.fontWeight = 700;
+    document.querySelector("i").style.color = "red";
+    displayFavourite();
+  }
+});
+
+
+let inputBox = document.querySelector(".search-box")
+inputBox.addEventListener("input",(e) =>{
   let result = countriesData.filter((i) => i.name.toLocaleLowerCase().includes(inputBox.value.toLocaleLowerCase()));
   display(result);
   if(result.length == 0){
     document.querySelector(".noMatchFound").style.display = "block";
   }
-  })
+})
